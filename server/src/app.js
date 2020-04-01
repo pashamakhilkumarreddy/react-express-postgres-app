@@ -4,7 +4,7 @@ const cors = require('cors');
 const pool = require('./db');
 const config = require('./config');
 
-const PORT = parseInt(config.server.port);
+const PORT = parseInt(config.server.port) || 5000;
 
 server.use(cors());
 server.use(express.json());

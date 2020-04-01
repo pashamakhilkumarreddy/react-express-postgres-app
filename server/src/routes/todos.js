@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
-const { TodosControllers } = require('../controllers');
+const {
+  TodosControllers,
+} = require('../controllers');
 
 router.post('/todos', TodosControllers.postTodo);
 

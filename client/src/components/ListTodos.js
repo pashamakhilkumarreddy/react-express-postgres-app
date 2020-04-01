@@ -7,7 +7,9 @@ const ListTodos = () => {
     try {
       const reponse = await fetch(`http://localhost:3000/todos`);
       const formattedTodos = await reponse.json();
-      setTodos([...JSON.parse(formattedTodos.data)]);
+      if (formattedTodos.data) {
+        setTodos([...JSON.parse(formattedTodos.data)]);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -23,7 +25,7 @@ const ListTodos = () => {
       const delTodo = await fetch(`http://localhost:3000/todos/${id}`, {
         method: 'DELETE'
       });
-      if (delTodo.status === 200 && delTodo.statusText === 'OK') {
+      if (delTodo.status === 200 && delTodo.ok === true) {
         setTodos(todos.filter(todo => todo.todo_id !== id));
       }
     } catch (err) {
@@ -49,11 +51,10 @@ const ListTodos = () => {
                 <td>{index + 1}</td>
                 <td className={`is-capitalized`}>{todo.description}</td>
                 <td>
-                  <EditTodo todo={todo}/>
-                  
+                  <EditTodo todo={todo}/>                  
                 </td>
                 <td>
-                  <button className={`button is-danger is-light`} onClick={(e) => deleteTodo(e, todo.todo_id) }>Delete</button>
+                  <button className={`button is-danger is-light`} onClick={(e) => deleteTodo(e, todo.todo_id)}>Delete</button>
                 </td>
               </tr>
             )

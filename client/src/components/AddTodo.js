@@ -14,7 +14,6 @@ const AddTodo = () => {
         },
         body: JSON.stringify(body)
       });
-      console.log(response);
       if (response.status === 200 && response.ok === true) { 
         setDescription('');
         window.location = '/';

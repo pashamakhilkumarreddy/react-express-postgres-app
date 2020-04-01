@@ -2,7 +2,8 @@ import React, { Fragment, useState } from 'react';
 
 const EditTodo = ({todo}) => {
   const [showmodal, setModalDisplay] = useState(false);
-  const [description, setDescription] = useState(todo.description)
+  const [description, setDescription] = useState(todo.description);
+
   const toggleModalDisplay = () => {
     setModalDisplay(!showmodal);
   }
@@ -18,10 +19,9 @@ const EditTodo = ({todo}) => {
         },
         body: JSON.stringify(body)
       });
-      if (response.status === 200 && response.statusText === 'OK') {
-        toggleModalDisplay();
+      if (response.status === 200 && response.ok === true) {
+        setModalDisplay(false);
       }
-      console.log(response);
     } catch (err) {
       console.error(err);
     }
@@ -33,24 +33,24 @@ const EditTodo = ({todo}) => {
       <div className={'modal ' + (showmodal ? 'is-active': '') }>
         <div className="modal-background"></div>
         <div className="modal-content">
-        <div className={`box mt-4`}>
-        <form className={`todo-form`} onSubmit={updateDescription}>
-          <div className={`field`}>
-            <label htmlFor="add-todo" className={`label`}>Edit Todo</label>
-            <div className={`control`}>
-              <input id="add-todo" className={`input`} type="text" placeholder="Edit Todo Description" value={description} onChange={ e => setDescription(e.target.value) } />
-            </div>
+            <div className={`box mt-4`}>
+            <form className={`todo-form`} onSubmit={updateDescription}>
+              <div className={`field`}>
+                <label htmlFor="add-todo" className={`label`}>Edit Todo</label>
+                <div className={`control`}>
+                  <input id="add-todo" className={`input`} type="text" placeholder="Edit Todo Description" value={description} onChange={ e => setDescription(e.target.value) } />
+                </div>
+              </div>
+              <div className={`field is-grouped`}>
+                <div className={`control`}>
+                  <button className={`button is-link`}>Edit</button>
+                </div>
+                <div className={`control`}>
+                  <button className={`button is-link is-light`} onClick={toggleModalDisplay}>Cancel</button>
+                </div>
+              </div>
+            </form>
           </div>
-          <div className={`field is-grouped`}>
-            <div className={`control`}>
-              <button className={`button is-link`}>Edit</button>
-            </div>
-            <div className={`control`}>
-              <button className={`button is-link is-light`} onClick={toggleModalDisplay}>Cancel</button>
-            </div>
-          </div>
-        </form>
-      </div>
         </div>
         <button className={`modal-close is-large`} aria-label="close" onClick={toggleModalDisplay}></button>
       </div>

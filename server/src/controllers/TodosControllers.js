@@ -6,14 +6,13 @@ module.exports = {
       const {
         description,
       } = req.body;
-      console.log(description);
       const newTodo = await pool.query(
         'INSERT INTO todo (description) VALUES($1) RETURNING *',
         [description],
       );
       res.status(200).send({
         err: false,
-        message: 'Successfully added todo',
+        message: 'Successfully added a new todo',
         data: JSON.stringify(newTodo.rows[0]),
       });
     } catch (err) {
@@ -29,7 +28,7 @@ module.exports = {
       const todos = await pool.query('SELECT * from todo ORDER BY todo_id');
       res.status(200).send({
         err: false,
-        message: 'Successfully fetched todos',
+        message: 'Successfully fetched all todos',
         data: JSON.stringify(todos.rows),
       });
     } catch (err) {
@@ -104,5 +103,4 @@ module.exports = {
       });
     }
   },
-
 };

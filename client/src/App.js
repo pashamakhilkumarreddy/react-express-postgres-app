@@ -9,10 +9,10 @@ function App() {
   return (
     <Fragment>
       <Header />
-      <div className={`container is-fluid`}>
+      <main className={`container is-fluid`}>
         <AddTodo />
         <ListTodos />
-      </div>
+      </main>
       <Footer />
     </Fragment>
   );
