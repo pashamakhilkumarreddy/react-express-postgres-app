@@ -6,6 +6,7 @@ module.exports = {
       const {
         description,
       } = req.body;
+      console.log(description);
       const newTodo = await pool.query(
         'INSERT INTO todo (description) VALUES($1) RETURNING *',
         [description],
@@ -25,7 +26,7 @@ module.exports = {
   },
   async getTodos(req, res) {
     try {
-      const todos = await pool.query('SELECT * from todo');
+      const todos = await pool.query('SELECT * from todo ORDER BY todo_id');
       res.status(200).send({
         err: false,
         message: 'Successfully fetched todos',
