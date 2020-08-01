@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EditTodo from './EditTodo';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
   const getTodos = async () => {
     try {
-      const reponse = await fetch(`http://localhost:3000/todos`);
+      const reponse = await fetch(`http://localhost:4000/todos`);
       const formattedTodos = await reponse.json();
       if (formattedTodos.data) {
         setTodos([...JSON.parse(formattedTodos.data)]);
@@ -22,7 +22,7 @@ const ListTodos = () => {
   const deleteTodo = async (e, id) => {
     e.preventDefault();
     try { 
-      const delTodo = await fetch(`http://localhost:3000/todos/${id}`, {
+      const delTodo = await fetch(`http://localhost:4000/todos/${id}`, {
         method: 'DELETE'
       });
       if (delTodo.status === 200 && delTodo.ok === true) {
@@ -34,7 +34,7 @@ const ListTodos = () => {
   }
 
   return (
-    <Fragment>
+    <>
       <table className={`table is-fullwidth is-hoverable`}>
         <thead>
           <tr>
@@ -61,7 +61,7 @@ const ListTodos = () => {
           }
         </tbody>
       </table>
-    </Fragment>
+    </>
   );
 }
 

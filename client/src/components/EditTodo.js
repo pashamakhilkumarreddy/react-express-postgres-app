@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 const EditTodo = ({todo}) => {
   const [showmodal, setModalDisplay] = useState(false);
@@ -12,7 +12,7 @@ const EditTodo = ({todo}) => {
     e.preventDefault();
     try {
       const body = { description };
-      const response = await fetch(`http://localhost:3000/todos/${todo.todo_id}`, {
+      const response = await fetch(`http://localhost:4000/todos/${todo.todo_id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ const EditTodo = ({todo}) => {
   }
 
   return (
-    <Fragment>
+    <>
       <button className={`button is-primary is-light`} onClick={toggleModalDisplay}>Edit</button>
       <div className={'modal ' + (showmodal ? 'is-active': '') }>
         <div className="modal-background"></div>
@@ -54,7 +54,7 @@ const EditTodo = ({todo}) => {
         </div>
         <button className={`modal-close is-large`} aria-label="close" onClick={toggleModalDisplay}></button>
       </div>
-    </Fragment>
+    </>
   );
 }
 
