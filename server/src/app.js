@@ -1,16 +1,24 @@
 const express = require('express');
-const server = express();
 const cors = require('cors');
-const pool = require('./db');
-const config = require('./config');
+const helmet = require('helmet');
+const compression = require('compression');
+const responseTime = require('response-time');
+// const pool = require('./db');
+const {
+  server: {
+    PORT,
+  },
+} = require('./config');
 
-const PORT = parseInt(config.server.port) || 5000;
-
+const server = express();
 server.use(cors());
+server.use(responseTime());
+server.use(helmet());
+server.use(compression());
 server.use(express.json());
 
-require('./routes')(server);
+require('./routes')({ server });
 
 server.listen(PORT, () => {
-    console.log(`The server is running on ${PORT}`)
-})
+  console.info(`The server is up and running on ${PORT}`);
+});
