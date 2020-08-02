@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
   server: {
-    PORT: process.env.PORT || 3000,
+    PORT: process.env.PORT || 4000,
   },
   db: {
     postgres: {

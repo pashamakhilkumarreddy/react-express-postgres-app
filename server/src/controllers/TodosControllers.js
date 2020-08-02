@@ -11,14 +11,14 @@ module.exports = {
         [description],
       );
       res.status(200).send({
-        err: false,
+        error: false,
         message: 'Successfully added a new todo',
         data: JSON.stringify(newTodo.rows[0]),
       });
     } catch (err) {
       console.error(err);
       res.status(500).send({
-        err: true,
+        error: true,
         message: 'Internal server error',
       });
     }
@@ -27,14 +27,14 @@ module.exports = {
     try {
       const todos = await pool.query('SELECT * from todo ORDER BY todo_id');
       res.status(200).send({
-        err: false,
+        error: false,
         message: 'Successfully fetched all todos',
         data: JSON.stringify(todos.rows),
       });
     } catch (err) {
       console.error(err);
       res.status(500).send({
-        err: true,
+        error: true,
         message: 'Internal server error',
       });
     }
@@ -46,14 +46,14 @@ module.exports = {
       } = req.params;
       const todo = await pool.query('SELECT * from todo where todo_id = $1', [id]);
       res.status(200).send({
-        err: false,
+        error: false,
         message: 'Successfully fetched todo',
         data: JSON.stringify(todo.rows[0]),
       });
     } catch (err) {
       console.error(err);
       res.status(500).send({
-        err: true,
+        error: true,
         message: 'Internal server error',
       });
     }
@@ -70,14 +70,14 @@ module.exports = {
       const updateTodo = await pool.query('UPDATE todo SET description = $1 WHERE todo_id = $2 ', [description, id]);
       if (updateTodo) {
         res.status(200).send({
-          err: false,
+          error: false,
           message: 'Successfully updated todo',
         });
       }
     } catch (err) {
       console.error(err);
       res.status(500).send({
-        err: true,
+        error: true,
         message: 'Internal server error',
       });
     }
@@ -91,14 +91,14 @@ module.exports = {
       const delTodo = await pool.query('DELETE FROM todo WHERE todo_id = $1', [id]);
       if (delTodo) {
         res.status(200).send({
-          err: false,
+          error: false,
           message: 'Successfully deleted todo',
         });
       }
     } catch (err) {
       console.error(err);
       res.status(500).send({
-        err: true,
+        error: true,
         message: 'Internal server error',
       });
     }
